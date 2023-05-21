@@ -25,7 +25,7 @@ module.exports = async (req, res) => {
 
     // Check database for duplicate entries
     const duplicate = await db.collection("users").findOne({
-      $or: [{ email: user.email }, { identifier: user.identifier }],
+      $or: [{ email: user.email }, { displayname: user.displayname }],
     });
 
     if (duplicate) {
@@ -99,7 +99,7 @@ module.exports = async (req, res) => {
     // Remove password and mongodb id from user object
     delete user._id;
     delete user.password;
-    
+
     // Return accessToken, refreshToken and user object to requesting user
     return res.json(
       compose.response(null, { accessToken, refreshToken, user }, null)

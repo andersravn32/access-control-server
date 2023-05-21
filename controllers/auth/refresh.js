@@ -8,7 +8,7 @@ module.exports = async (req, res) => {
   if (!validatorErrors.isEmpty()) {
     return res.json(compose.response(null, null, validatorErrors.array()));
   }
-
+  
   try {
     // Extract token data from token provided as parameter
     const token = jwt.verify(req.body.token, process.env.JWT_REFRESH);
