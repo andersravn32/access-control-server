@@ -96,6 +96,10 @@ module.exports = async (req, res) => {
       );
     }
 
+    // Remove password and mongodb id from user object
+    delete user._id;
+    delete user.password;
+    
     // Return accessToken, refreshToken and user object to requesting user
     return res.json(
       compose.response(null, { accessToken, refreshToken, user }, null)
