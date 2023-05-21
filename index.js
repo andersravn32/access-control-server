@@ -35,6 +35,9 @@ const init = async () => {
   app.use(express.urlencoded({ extended: false }));
   app.use(express.json());
 
+  // Add main router
+  app.use(require("./routes"));
+
   // Add Socket.io server instance
   const io = new Server(server, {
     cors: {
