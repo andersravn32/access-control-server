@@ -44,6 +44,9 @@ const init = async () => {
       origin: "*",
     },
   });
+  
+  // Init socket handler
+  require("./utilities/socket")(io);
 
   // Listen to port provided as environment variable
   server.listen(process.env.PORT, () => {
