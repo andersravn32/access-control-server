@@ -24,6 +24,18 @@ module.exports = (io) => {
 
   // Handle socket connections
   io.on("connection", (socket) => {
-    console.log(socket.id)
+    socket.on("chat-message", (e) => {
+      try {
+        const decoded = verify(socket.handshake.auth.token, process.env.JWT_AUTH);
+        
+        io.emit("chat-message", {
+          displayname: decoded.displayname,
+          text: e.text,
+          type: "message-foreign"
+        })
+      } catch (error) {
+        console.log(error)
+      }
+    });
   });
 };
