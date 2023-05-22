@@ -26,15 +26,18 @@ module.exports = (io) => {
   io.on("connection", (socket) => {
     socket.on("chat-message", (e) => {
       try {
-        const decoded = verify(socket.handshake.auth.token, process.env.JWT_AUTH);
-        
+        const decoded = verify(
+          socket.handshake.auth.token,
+          process.env.JWT_AUTH
+        );
+        console.log(`[${socket.id}] - Incoming: ${JSON.stringify(e)}`);
         io.emit("chat-message", {
           displayname: decoded.displayname,
           text: e.text,
-          type: "message-foreign"
-        })
+          type: "message-foreign",
+        });
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     });
   });
